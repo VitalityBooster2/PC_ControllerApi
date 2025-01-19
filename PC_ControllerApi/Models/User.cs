@@ -3,12 +3,12 @@
     public class User : BaseEntity
     {
 
-        public Guid Id { get; set; }
+        public new Guid Id { get; set; }
 
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
 
         public Guid PC_Id { get; set; }
 
-        public string AdditionalInfo { get; set; }
+        public string AdditionalInfo { get; set; } = null!;
     }
 }

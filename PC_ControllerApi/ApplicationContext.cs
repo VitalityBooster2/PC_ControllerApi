@@ -9,23 +9,15 @@ namespace PC_ControllerApi
     public class ApplicationContext : DbContext
     {
 
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<PC> PCes { get; set; }
+        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<PC> PCes { get; set; } = null!;
 
-        public ApplicationContext(DbContextOptions options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        public ApplicationContext(DbContextOptions options) : base(options) => Database.EnsureCreated();
 
         protected ApplicationContext()
         {
-           
             Database.EnsureCreated();
-            
         }
-
-        
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

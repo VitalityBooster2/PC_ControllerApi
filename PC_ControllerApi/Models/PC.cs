@@ -2,8 +2,8 @@
 {
     public class PC : BaseEntity
     {
-        public Guid Id { get; set; }
-        public string PCName { get; set; }
+        public new Guid Id { get; set; }
+        public string PCName { get; set; } = null!;
 
     }
 }

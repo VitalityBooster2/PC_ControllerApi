@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PC_ControllerApi;
+using PC_ControllerApi.Controllers;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
+
+builder.Services.AddTransient<UserController>();
 
 var ap = builder.Services.BuildServiceProvider().GetService<ApplicationContext>();
 
