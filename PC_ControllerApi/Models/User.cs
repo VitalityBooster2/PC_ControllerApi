@@ -9,6 +9,6 @@
 
         public Guid PC_Id { get; set; }
 
-        public string AdditionalInfo { get; set; } = null!;
+        public string? AdditionalInfo { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using PC_ControllerApi;
 using PC_ControllerApi.Controllers;
+using PC_ControllerApi.Implementations.Factories;
+using PC_ControllerApi.Interfaces;
 using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,13 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
+builder.Services.AddTransient<IDbManagerFactory, DbManagerFactory>();
 
 builder.Services.AddTransient<UserController>();
-
+builder.Services.AddSignalR();
 var ap = builder.Services.BuildServiceProvider().GetService<ApplicationContext>();
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +27,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MapHub<ChatHub>("api/regHub");
 
 
 // Configure the HTTP request pipeline.
@@ -37,7 +43,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 };
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
